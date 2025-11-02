@@ -637,7 +637,7 @@ with cmod:
                     yhat = model.predict(X_model)
 
                     r2_in = r2_score(y, yhat)
-                    rmse = mean_squared_error(y, yhat, squared=False)
+                    rmse = float(np.sqrt(mean_squared_error(y, yhat)))
                     mae = mean_absolute_error(y, yhat)
                     bias = float(np.mean(yhat - y))
                     st.write(f"CV R² (GroupKFold by field): **{r2_cv.mean():.2f} ± {r2_cv.std():.2f}** | In-sample R²: **{r2_in:.2f}** | RMSE: **{rmse:.03f}** | MAE: **{mae:.03f}** | Bias (ŷ−y): **{bias:.03f}**")
@@ -693,7 +693,7 @@ with cmod:
                             mdl.fit(Xf, yf)
                             yhatf = mdl.predict(Xf)
                             r2f = r2_score(yf, yhatf)
-                            rmsef = mean_squared_error(yf, yhatf, squared=False)
+                            rmsef = float(np.sqrt(mean_squared_error(yf, yhatf)))
                             rows_pf.append({"field_id": fid, "n": len(Zf), "r2_in": r2f, "cv_r2_3fold": cvf_mean, "rmse": rmsef})
 
                         pf_df = pd.DataFrame(rows_pf, columns=["field_id","n","r2_in","cv_r2_3fold","rmse"])
